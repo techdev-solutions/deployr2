@@ -104,4 +104,8 @@ docs/_build/
 # PyBuilder
 target/
 
+# custom
+# just a copy for intellij so it can run the manage.py tasks in the root of the project
+/settings.py
 
+*.sqlite3

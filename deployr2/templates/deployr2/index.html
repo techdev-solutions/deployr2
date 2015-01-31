@@ -1,0 +1,42 @@
+{% load staticfiles %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>deployr2</title>
+    <link rel="stylesheet" href="{% static "deployr2/css/normalize.css" %}"/>
+    <link rel="stylesheet" href="{% static "deployr2/css/skeleton.css" %}"/>
+    <style>
+        body {
+            padding-top: 10px;
+        }
+
+        .img-responsive {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="four columns"><h1>deployr 2</h1></div>
+        <div class="three columns"><img class="img-responsive" src="http://techdev.de/assets/img/logo1-techdev.png" alt="techdev logo"/></div>
+    </div>
+    <div class="row">
+        <div class="four columns">
+            <h2>Welcome!</h2>
+            <p>This is deployr2, the deployment app for techdev. Test out feature branches with the ease of a few clicks!</p>
+        </div>
+        <div class="eight columns">
+            <h2>Start a new deployment</h2>
+            <p>From here you can start a new deployment to our QS server.</p>
+            <p>
+                <a class="button" href="{% url 'deployr2:start_deployment' %}">Go &gt;&gt;</a>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
