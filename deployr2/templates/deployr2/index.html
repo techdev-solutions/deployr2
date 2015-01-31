@@ -1,4 +1,9 @@
 {% extends 'deployr2/base.html' %}
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'deployr2/css/index.css' %}"/>
+{% endblock %}
 {% block content %}
     <div class="row">
         <div class="four columns">
@@ -13,4 +18,23 @@
             </p>
         </div>
     </div>
+
+    <h2>Running deployments</h2>
+    <div class="row">
+    {% for deployment in deployments %}
+        <div class="columns four deployment">
+            <h5>Deployment {{ forloop.counter }}</h5>
+            <p>Status: RUNNING (TODO should also have STOPPED)</p>
+            <p>Branches: TODO</p>
+            <a class="button" href="APACHE">Goto</a>
+            <a class="button inspect" href="{% url 'deployr2:deployment' deployment.id %}">Inspect</a>
+            <a class="button stop" href="STAHP">Stop</a>
+        </div>
+
+        {% if forloop.counter|divisibleby:"3" %}
+            </div><div class="row">
+        {% endif %}
+    {% endfor %}
+    </div>
+
 {% endblock %}

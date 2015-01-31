@@ -1,0 +1,10 @@
+.deployment {
+    border-radius: 10px;
+    background-color: #E2EDD3;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.deployment a.button {
+    padding: 0 20px;
+}

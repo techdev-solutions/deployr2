@@ -1,0 +1,26 @@
+{% extends 'deployr2/base.html' %}
+{% block content %}
+    <h3>{{ deployment.id }}</h3>
+    <div class="row">
+        <div class="columns twelve">
+            <a class="button" href="APACHE">Goto deployment</a>
+            <p>The deployment is RUNNING</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="columns six">
+            <h5>Actions</h5>
+
+            <form action="stop" method="post">
+                {% csrf_token %}
+                <button type="submit" class="stop">Stop</button>
+            </form>
+
+            <form action="{% url 'deployr2:delete_deployment' deployment.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="delete">Delete</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

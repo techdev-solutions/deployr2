@@ -28,12 +28,12 @@
         </div>
     </div>
 
-    <form class="hidden-radios" action="" method="post">
+    <form class="hidden-radios" action="{% url 'deployr2:start_deployment' %}" method="post">
         {% csrf_token %}
         <div class="row">
             <div class="columns five">
                 <h4>trackr-backend</h4>
-                <select name="backend_build_nr" data-bind="options: backendBuilds, optionsText: 'number', optionsValue: 'number'"></select>
+                <select name="backend_build_id" data-bind="options: backendBuilds, optionsText: 'number', optionsValue: 'id'"></select>
                 {% for branch in backend_branches %}
                     <input id="backend-{{ branch.name }}" type="radio" name="backend_branch" value="{{ branch.name }}"/>
                     <label class="branch-radio" for="backend-{{ branch.name }}">{{ branch.name }}</label>
@@ -42,7 +42,7 @@
 
             <div class="columns five">
                 <h4>trackr-frontend</h4>
-                <select name="frontend_build_nr" data-bind="options: frontendBuilds, optionsText: 'number', optionsValue: 'number'"></select>
+                <select name="frontend_build_id" data-bind="options: frontendBuilds, optionsText: 'number', optionsValue: 'id'"></select>
                 {% for branch in frontend_branches %}
                     <input id="frontend-{{ branch.name }}" type="radio" name="frontend_branch" value="{{ branch.name }}"/>
                     <label class="branch-radio" for="frontend-{{ branch.name }}">{{ branch.name }}</label>
