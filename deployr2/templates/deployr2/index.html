@@ -1,20 +1,5 @@
-{% load staticfiles %}
-
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>deployr2</title>
-    <link rel="stylesheet" href="{% static "deployr2/css/normalize.css" %}"/>
-    <link rel="stylesheet" href="{% static "deployr2/css/skeleton.css" %}"/>
-    <link rel="stylesheet" href="{% static "deployr2/css/main.css" %}"/>
-</head>
-<body>
-<div class="container">
-    <div class="row">
-        <div class="four columns"><h1>deployr2</h1></div>
-        <div class="three columns"><img class="img-responsive" src="http://techdev.de/assets/img/logo1-techdev.png" alt="techdev logo"/></div>
-    </div>
+{% extends 'deployr2/base.html' %}
+{% block content %}
     <div class="row">
         <div class="four columns">
             <h2>Welcome!</h2>
@@ -28,6 +13,4 @@
             </p>
         </div>
     </div>
-</div>
-</body>
-</html>
+{% endblock %}

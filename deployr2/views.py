@@ -1,29 +1,54 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
-import requests
-
-# Create your views here.
-
-teamcity_auth = ('deployr2', 'deployr2')
-teamcity_rest_base = 'http://192.168.188.20:8111/app/rest'
-accept_json_header = {'Accept': 'application/json'}
+import teamcity
 
 
 def index(request):
     return render(request, 'deployr2/index.html', {})
 
 
-def start_deployment(request):
-    backend_branches = requests.get('%s/buildTypes/id:Techdev_TrackrBackend/branches' % teamcity_rest_base, auth=teamcity_auth, headers=accept_json_header)
-    frontend_branches = requests.get('%s/buildTypes/id:Techdev_TrackrFrontend/branches' % teamcity_rest_base, auth=teamcity_auth, headers=accept_json_header)
+def start_deployment_get(request, error=None):
+    backend_branches = teamcity.get_branches('Techdev_TrackrBackend')
+    frontend_branches = teamcity.get_branches('Techdev_TrackrFrontend')
+    model = {
+        'backend_branches': backend_branches.json()['branch'],
+        'frontend_branches': frontend_branches.json()['branch'],
+        'error': error
+    }
+    return render(request, 'deployr2/start_deployment.html', model)
 
-    return render(request, 'deployr2/start_deployment.html', {'backend_branches': backend_branches.json()['branch'], 'frontend_branches': frontend_branches.json()['branch']})
+
+def start_deployment_post(request):
+    try:
+        backend_branch = request.POST['backend_branch']
+        frontend_branch = request.POST['frontend_branch']
+        backend_build_nr = request.POST['backend_build_nr']
+        frontend_build_nr = request.POST['frontend_build_nr']
+    except KeyError, e:
+        return start_deployment_get(request, error=e.message)
+
+    # create random folder
+    # download artifacts from teamcity into folder
+    # prepare files, like nginx conf and index.html <base tag>
+    # create docker container
+    # run docker container and mount the created directories
+    # save entity into database
+    # redirect to entity page
+
+    # TODO this is just temporary...
+    return start_deployment_get(request)
+
+
+def start_deployment(request):
+    if request.method == 'GET':
+        return start_deployment_get(request)
+    elif request.method == 'POST':
+        return start_deployment_post(request)
 
 
 def get_builds_for_build_type_and_branch(request):
     # TODO required parameters!
     branch = request.GET.get('branch')
     build_id = request.GET.get('build_id')
-    builds = requests.get(u'{0:s}/builds?locator=buildType:{1:s},branch:{2:s}'.format(teamcity_rest_base, build_id, branch), auth=teamcity_auth, headers=accept_json_header)
+    builds = teamcity.get_builds(build_id, branch)
     return HttpResponse(builds, content_type="application/json")

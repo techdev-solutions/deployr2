@@ -15,11 +15,11 @@ $(function() {
         $radioInputs.attr('disabled', 'disabled');
         $selects.attr('disabled', 'disabled');
 
-        var buildType = ev.target.name === 'frontend-branch' ? 'Techdev_TrackrFrontend' : 'Techdev_TrackrBackend';
+        var buildType = ev.target.name === 'frontend_branch' ? 'Techdev_TrackrFrontend' : 'Techdev_TrackrBackend';
 
         function buildsLoaded(buildResponse) {
             // replace build array
-            if(ev.target.name === 'frontend-branch') {
+            if(ev.target.name === 'frontend_branch') {
                 viewModel.frontendBuilds(buildResponse.build);
             } else {
                 viewModel.backendBuilds(buildResponse.build);

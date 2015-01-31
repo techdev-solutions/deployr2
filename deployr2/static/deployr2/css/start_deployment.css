@@ -17,3 +17,9 @@
     transition-property: background-color;
     transition-duration: 150ms;
 }
+
+p.error {
+    background-color: #CD5C5C;
+    padding: 10px;
+    border-radius: 10px;
+}
