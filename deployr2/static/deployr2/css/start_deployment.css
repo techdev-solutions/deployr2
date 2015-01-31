@@ -1,0 +1,19 @@
+.hidden-radios input[type="radio"] {
+    display: none;
+}
+
+.hidden-radios input[type="radio"] + label {
+    display: block;
+    font-size: 1.5rem;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    height: 40px;
+    padding-top: 15px;
+    text-align: center;
+}
+
+.hidden-radios input[type="radio"]:checked + label {
+    background-color: rgb(199, 216, 165);
+    transition-property: background-color;
+    transition-duration: 150ms;
+}

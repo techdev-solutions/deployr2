@@ -7,79 +7,13 @@
     <title>deployr2</title>
     <link rel="stylesheet" href="{% static "deployr2/css/normalize.css" %}"/>
     <link rel="stylesheet" href="{% static "deployr2/css/skeleton.css" %}"/>
+    <link rel="stylesheet" href="{% static "deployr2/css/main.css" %}"/>
+    <link rel="stylesheet" href="{% static "deployr2/css/start_deployment.css" %}"/>
 
     <script src="{% static 'deployr2/js/jquery-2.1.3.min.js' %}"></script>
     <script src="{% static 'deployr2/js/knockout-3.2.0.js' %}"></script>
 
-    <script type="text/javascript">
-        function loadBuilds(buildId, branch) {
-            return $.get('/get_builds', {branch: branch, build_id: buildId});
-        }
-
-        var viewModel = {
-            frontendBuilds: ko.observableArray(),
-            backendBuilds: ko.observableArray()
-        };
-
-        $(function() {
-            var $radioInputs = $('input[type="radio"]');
-            var $selects = $('select');
-
-            $radioInputs.change(function(ev) {
-                $radioInputs.attr('disabled', 'disabled');
-                $selects.attr('disabled', 'disabled');
-
-                var buildType = ev.target.name === 'frontend-branch' ? 'Techdev_TrackrFrontend' : 'Techdev_TrackrBackend';
-
-                function buildsLoaded(buildResponse) {
-                    // replace build array
-                    if(ev.target.name === 'frontend-branch') {
-                        viewModel.frontendBuilds(buildResponse.build);
-                    } else {
-                        viewModel.backendBuilds(buildResponse.build);
-                    }
-
-                    $radioInputs.removeAttr('disabled');
-                    $selects.removeAttr('disabled');
-                }
-
-                loadBuilds(buildType, ev.target.value).done(buildsLoaded);
-            });
-
-            ko.applyBindings(viewModel);
-        });
-    </script>
-
-    <style>
-        body {
-            padding-top: 10px;
-        }
-
-        .img-responsive {
-            width: 100%;
-            height: auto;
-        }
-
-        .hidden-radios input[type="radio"] {
-            display: none;
-        }
-
-        .hidden-radios input[type="radio"] + label {
-            display: block;
-            font-size: 1.5rem;
-            background-color: #f8f8f8;
-            border-radius: 10px;
-            height: 40px;
-            padding-top: 15px;
-            text-align: center;
-        }
-
-        .hidden-radios input[type="radio"]:checked + label {
-            background-color: rgb(199, 216, 165);
-            transition-property: background-color;
-            transition-duration: 150ms;
-        }
-    </style>
+    <script type="text/javascript" src="{% static 'deployr2/js/start_deployment.js' %}"></script>
 </head>
 <body>
 <div class="container">
