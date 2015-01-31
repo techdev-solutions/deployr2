@@ -7,6 +7,49 @@
     <title>deployr2</title>
     <link rel="stylesheet" href="{% static "deployr2/css/normalize.css" %}"/>
     <link rel="stylesheet" href="{% static "deployr2/css/skeleton.css" %}"/>
+
+    <script src="{% static 'deployr2/js/jquery-2.1.3.min.js' %}"></script>
+    <script src="{% static 'deployr2/js/knockout-3.2.0.js' %}"></script>
+
+    <script type="text/javascript">
+        function loadBuilds(buildId, branch) {
+            return $.get('/get_builds', {branch: branch, build_id: buildId});
+        }
+
+        var viewModel = {
+            frontendBuilds: ko.observableArray(),
+            backendBuilds: ko.observableArray()
+        };
+
+        $(function() {
+            var $radioInputs = $('input[type="radio"]');
+            var $selects = $('select');
+
+            $radioInputs.change(function(ev) {
+                $radioInputs.attr('disabled', 'disabled');
+                $selects.attr('disabled', 'disabled');
+
+                var buildType = ev.target.name === 'frontend-branch' ? 'Techdev_TrackrFrontend' : 'Techdev_TrackrBackend';
+
+                function buildsLoaded(buildResponse) {
+                    // replace build array
+                    if(ev.target.name === 'frontend-branch') {
+                        viewModel.frontendBuilds(buildResponse.build);
+                    } else {
+                        viewModel.backendBuilds(buildResponse.build);
+                    }
+
+                    $radioInputs.removeAttr('disabled');
+                    $selects.removeAttr('disabled');
+                }
+
+                loadBuilds(buildType, ev.target.value).done(buildsLoaded);
+            });
+
+            ko.applyBindings(viewModel);
+        });
+    </script>
+
     <style>
         body {
             padding-top: 10px;
@@ -53,22 +96,20 @@
 
         <div class="row">
             <div class="columns five">
-            <h3>trackr-backend</h3>
-            {% for branch in backend_branches %}
-                <input id="backend-{{ branch.name }}" type="radio" name="backend-branch" value="{{ branch.name }}"/>
-                <label class="branch-radio" for="backend-{{ branch.name }}">{{ branch.name }}</label>
-{#                <select name="backend-{{ branch.name }}-build-number" id="build-number">#}
-{#                </select>#}
-            {%  endfor %}
+                <h3>trackr-backend</h3>
+                <select name="backend-build-nr" data-bind="options: backendBuilds, optionsText: 'number', optionsValue: 'number'"></select>
+                {% for branch in backend_branches %}
+                    <input id="backend-{{ branch.name }}" type="radio" name="backend-branch" value="{{ branch.name }}"/>
+                    <label class="branch-radio" for="backend-{{ branch.name }}">{{ branch.name }}</label>
+                {%  endfor %}
             </div>
 
             <div class="columns five">
                 <h3>trackr-frontend</h3>
+                <select name="frontend-build-nr" data-bind="options: frontendBuilds, optionsText: 'number', optionsValue: 'number'"></select>
                 {% for branch in frontend_branches %}
                     <input id="frontend-{{ branch.name }}" type="radio" name="frontend-branch" value="{{ branch.name }}"/>
                     <label class="branch-radio" for="frontend-{{ branch.name }}">{{ branch.name }}</label>
-                    {#                <select name="backend-{{ branch.name }}-build-number" id="build-number">#}
-                    {#                </select>#}
                 {%  endfor %}
             </div>
         </div>
