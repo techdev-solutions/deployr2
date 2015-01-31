@@ -16,17 +16,67 @@
             width: 100%;
             height: auto;
         }
+
+        .hidden-radios input[type="radio"] {
+            display: none;
+        }
+
+        .hidden-radios input[type="radio"] + label {
+            display: block;
+            font-size: 1.5rem;
+            background-color: #f8f8f8;
+            border-radius: 10px;
+            height: 40px;
+            padding-top: 15px;
+            text-align: center;
+        }
+
+        .hidden-radios input[type="radio"]:checked + label {
+            background-color: rgb(199, 216, 165);
+            transition-property: background-color;
+            transition-duration: 150ms;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="row">
-        <div class="four columns"><h1>deployr 2</h1></div>
+        <div class="four columns"><h1>deployr2</h1></div>
         <div class="three columns"><img class="img-responsive" src="http://techdev.de/assets/img/logo1-techdev.png" alt="techdev logo"/></div>
     </div>
     <div class="row">
         <h2>Start a new deployment</h2>
+        <p>Please choose a backend and frontend branch and build number, then press GO.</p>
     </div>
+
+    <form class="hidden-radios" action="start-deployment" method="post">
+
+        <div class="row">
+            <div class="columns five">
+            <h3>trackr-backend</h3>
+            {% for branch in backend_branches %}
+                <input id="backend-{{ branch.name }}" type="radio" name="backend-branch" value="{{ branch.name }}"/>
+                <label class="branch-radio" for="backend-{{ branch.name }}">{{ branch.name }}</label>
+{#                <select name="backend-{{ branch.name }}-build-number" id="build-number">#}
+{#                </select>#}
+            {%  endfor %}
+            </div>
+
+            <div class="columns five">
+                <h3>trackr-frontend</h3>
+                {% for branch in frontend_branches %}
+                    <input id="frontend-{{ branch.name }}" type="radio" name="frontend-branch" value="{{ branch.name }}"/>
+                    <label class="branch-radio" for="frontend-{{ branch.name }}">{{ branch.name }}</label>
+                    {#                <select name="backend-{{ branch.name }}-build-number" id="build-number">#}
+                    {#                </select>#}
+                {%  endfor %}
+            </div>
+        </div>
+
+        <div class="columns two">
+            <button>Go &gt;&gt;</button>
+        </div>
+    </form>
 </div>
 </body>
 </html>
