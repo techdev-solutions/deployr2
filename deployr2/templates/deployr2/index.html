@@ -26,7 +26,7 @@
             <h5>Deployment {{ forloop.counter }}</h5>
             <p>Status: RUNNING (TODO should also have STOPPED)</p>
             <p>Branches: TODO</p>
-            <a class="button" href="APACHE">Goto</a>
+            <a class="button" href="/{{ deployment.id }}">Goto</a>
             <a class="button inspect" href="{% url 'deployr2:deployment' deployment.id %}">Inspect</a>
             <a class="button stop" href="STAHP">Stop</a>
         </div>
