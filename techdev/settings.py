@@ -83,6 +83,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Path for deployments of deployr2
+# With trailing slash!
 DEPLOYR2_DEPLOYMENTS = '/Volumes/Volume/deployr2/'
 DEPLOYR2_TEAMCITY_SERVER = 'http://192.168.188.20:8111'
 DEPLOYR2_TEAMCITY_USER = 'deployr2'
