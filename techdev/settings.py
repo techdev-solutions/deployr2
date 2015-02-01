@@ -81,3 +81,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Path for deployments of deployr2
+DEPLOYR2_DEPLOYMENTS = '/Volumes/Volume/deployr2/'
+DEPLOYR2_TEAMCITY_SERVER = 'http://192.168.188.20:8111'
+DEPLOYR2_TEAMCITY_USER = 'deployr2'
+DEPLOYR2_TEAMCITY_PASSWORD = 'deployr2'

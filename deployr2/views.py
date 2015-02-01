@@ -93,7 +93,8 @@ def delete_deployment(request, deployment_name):
 
     # remove folders
     import shutil
-    shutil.rmtree('/Volumes/Volume/deployr2/%s' % deployment.id)
+    from django.conf import settings
+    shutil.rmtree(settings.DEPLOYR2_DEPLOYMENTS + deployment.id)
 
     # remove entity
     deployment.delete()

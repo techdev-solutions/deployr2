@@ -5,9 +5,10 @@ import requests
 
 class Teamcity:
     def __init__(self):
-        self.teamcity_auth = ('deployr2', 'deployr2')
-        self.teamcity_base = 'http://192.168.188.20:8111'
-        self.teamcity_rest_base = '%s/app/rest' % self.teamcity_base
+        from django.conf import settings
+        self.teamcity_auth = (settings.DEPLOYR2_TEAMCITY_USER, settings.DEPLOYR2_TEAMCITY_PASSWORD)
+        self.teamcity_base = settings.DEPLOYR2_TEAMCITY_SERVER
+        self.teamcity_rest_base = self.teamcity_base + '/app/rest'
 
     def __base_request(self, path):
         accept_json_header = {'Accept': 'application/json'}

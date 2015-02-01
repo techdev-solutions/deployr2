@@ -6,7 +6,8 @@ import logging
 
 class FilePreparer:
     def __init__(self, deployment_name):
-        self.base_path = '/Volumes/Volume/deployr2/' + deployment_name
+        from django.conf import settings
+        self.base_path = settings.DEPLOYR2_DEPLOYMENTS + deployment_name
         self.logger = logging.getLogger(__name__)
 
     def create_directory_structure(self):
