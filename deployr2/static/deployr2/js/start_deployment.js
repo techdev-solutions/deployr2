@@ -17,12 +17,12 @@ $(function() {
 
         var buildType = ev.target.name === 'frontend_branch' ? 'Techdev_TrackrFrontend' : 'Techdev_TrackrBackend';
 
-        function buildsLoaded(buildResponse) {
+        function buildsLoaded(builds) {
             // replace build array
             if(ev.target.name === 'frontend_branch') {
-                viewModel.frontendBuilds(buildResponse.build);
+                viewModel.frontendBuilds(builds);
             } else {
-                viewModel.backendBuilds(buildResponse.build);
+                viewModel.backendBuilds(builds);
             }
 
             $radioInputs.removeAttr('disabled');
